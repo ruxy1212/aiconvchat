@@ -45,9 +45,14 @@
     const form = document.querySelectorAll('form')[1];
     form.addEventListener('submit', function(e){
         e.preventDefault();
-        document.querySelector('.fbtn > div').classList.add('dark:bg-red-800/20');
-        document.querySelector('.fbtn > div > svg').style.stroke = "#916060";
-        form.submit();
+        if(!document.querySelector('.bdls-input').checkValidity()){
+            // console.log('empty');
+            document.querySelector('.bdls-input').reportValidity();
+        }else {
+            document.querySelector('.fbtn > div').classList.add('dark:bg-red-800/20');
+            document.querySelector('.fbtn > div > svg').style.stroke = "#916060";
+            form.submit();
+        }
     });
 
     var config = document.getElementById('config');
@@ -76,9 +81,19 @@
                     const nAction = new Event('submit', {cancelable: true});
                     e.target.form.dispatchEvent(nAction);
                 }
-                event.preventDefault();
+                e.preventDefault();
             }
         }
     }
 
     document.querySelector('.bdls-input').addEventListener('keydown', enterSubmit);
+
+    function getTZ() {
+        function z(n){return (n<10? '0' : '') + n}
+        var offset = new Date().getTimezoneOffset();
+        var sign = offset < 0? '+' : '-';
+        offset = Math.abs(offset);
+        return sign+','+z(offset/60 | 0)+','+z(offset%60);
+    }
+
+    document.getElementById('tzo').value = getTZ();

@@ -3,11 +3,9 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>RAI Convo</title>
+        <title>RAI Chat</title>
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-
-        <!-- Styles -->
         <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
         <link href="{{ asset('rlogo.png') }}" rel="icon" />
     </head>
@@ -58,7 +56,6 @@
             <div class="relative" style="height: 100%; width: 100%; width: 500px; max-width: 80%; display: block; margin: 0 auto;">
                 <div class="focal-outline scale-100 p-3 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex focusw:outline focusw:outline-2 focusw:outline-red-500" style="position: absolute; bottom: 200px; width: 100%;">
                     <form class="wwide" action="" method="post" style="padding: 10px;">
-                    {{-- {{route('generate.qr')}} --}}
                         @csrf
                         <label class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed" style="display: block; text-align: center; padding: 10px;" for="title"><strong>Your Name</strong></label>
                             <div class="input-group">
@@ -76,56 +73,50 @@
                 <div class="flex justify-center">
                     <img class="h-16 w-auto" src="{{ asset('rlogo.png') }}" alt="Logo" />
                 </div>
-
                 @foreach($messages as $message)
-                        <div class="boxc">
-                            <div class="flex" @if($message['role'] === 'user') style="flex-direction: row-reverse; margin: 0 0 0 auto;" @endif>
-                                <div>
-                                    <div class="@if($message['role'] === 'user') relative @endif h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
-                                      @if($message['role'] == 'assistant')
-                                        <img class="h-166 w-auto" src="{{ asset('rlogo.png') }}" alt="Logo" />
-                                      @else 
-                                        <img class="h-166 w-auto" src="{{ asset('clogo.png') }}" alt="Logo" />
-                                        <span class="w-166">@if(session()->has('title')) {{ strtoupper(Session::get('title')[0]) }} @else R @endif  </span>
-                                      @endif
-                                    </div>
+                    <div class="boxc">
+                        <div class="flex" @if($message['role'] === 'user') style="flex-direction: row-reverse; margin: 0 0 0 auto;" @endif>
+                            <div>
+                                <div class="@if($message['role'] === 'user') relative @endif h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
+                                    @if($message['role'] == 'assistant')
+                                    <img class="h-166 w-auto" src="{{ asset('rlogo.png') }}" alt="Logo" />
+                                    @else 
+                                    <img class="h-166 w-auto" src="{{ asset('clogo.png') }}" alt="Logo" />
+                                    <span class="w-166">@if(session()->has('title')) {{ strtoupper(Session::get('title')[0]) }} @else R @endif  </span>
+                                    @endif
                                 </div>
-                                <a href="javascript:void(0);" class="scale-100 p-3 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                                    <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                        {!! $message['content'] !!}
-                                    </p>
-                                </a>
                             </div>
-                        </div>
-            @endforeach
-
-
-
-
-
-            </div>
-        </div>
-                <div class="boxr">
-                    <div class="p-6">
-                        <div class="scale-100 p-3 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex focusw:outline focusw:outline-2 focusw:outline-red-500 inpxb">
-                            <form class="relative sm:flex sm:justify-center sm:items-center wwide" action="" method="post">
-                                @csrf
-                                <textarea type="text" rows="1" onkeyup="txAdjust(this)" class="bdls-input wwide text-gray-500 dark:text-gray-400 text-sm" required name="message" autofocus autocomplete="off" placeholder="Write..."></textarea>
-                                <button class="fbtn">
-                                    <div class="h-8 w-8 bg-red-50 flex items-center justify-center rounded-full">
-                                    {{-- dark:bg-red-800/20  --}}
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-                                        </svg>
-                                    </div>
-                                </button>
-                            </form>
-        
-                        
+                            <a href="javascript:void(0);" class="scale-100 p-3 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500" style="flex-direction: column; margin-bottom: 10px;">
+                                <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+                                    {!! $message['content'] !!}
+                                </p>
+                                <small style="position: absolute; bottom: -18px; @if($message['role'] === 'user') right @else left @endif : 0; white-space: nowrap;font-size: x-small;" class="text-gray-900 dark:text-bisque">{!! $message['time'] !!}</small>
+                            </a>
                             
                         </div>
                     </div>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="boxr">
+            <div class="p-6">
+                <div class="scale-100 p-3 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex focusw:outline focusw:outline-2 focusw:outline-red-500 inpxb">
+                    <form class="relative sm:flex sm:justify-center sm:items-center wwide" action="" method="post">
+                        @csrf
+                        <textarea type="text" rows="1" onkeyup="txAdjust(this)" class="bdls-input wwide text-gray-500 dark:text-gray-400 text-sm" required name="message" autofocus autocomplete="off" placeholder="Write..."></textarea>
+                        <input type="hidden" name="tz" id="tzo"/>
+                        <button class="fbtn">
+                            <div class="h-8 w-8 bg-red-50 flex items-center justify-center rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
+                                </svg>
+                            </div>
+                        </button>
+                    </form>
                 </div>
+            </div>
+        </div>
         <script src="{{ asset('js/script.js') }}"></script>
     </body>
 </html>

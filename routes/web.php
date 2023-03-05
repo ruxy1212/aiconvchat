@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use OpenAI\Laravel\Facades\OpenAI;
 
 Route::get('/', function () {
+   $msgs = collect(session('msgs', []))->reject(fn ($message) => $message['role'] === 'system');
    $messages = collect(session('messages', []))->reject(fn ($message) => $message['role'] === 'system');
     return view('welcome' , [
         'messages' => $messages
@@ -11,27 +12,46 @@ Route::get('/', function () {
 });
 
 Route::post('/', function(Request $request){
+    function getTime($times){   
+        $tzo = explode(',', $times);
+        $day=Date('d/m/y'); $m=Date('i'); $h=Date('H'); $h=($tzo[0]=='+')?$h+$tzo[1]:$h-$tzo[1]; $h=($h<0)?24-$h:$h; $h=($h>23)?$h-24:$h; 
+        $m=($tzo[0]=='+')?$m+$tzo[2]:$m-$tzo[2]; $m=($m<0)?60-$m:$m; $m=($m>60)?$m-60:$m; $h=($m<0)?$h-1:$h; $h=($m>60)?$h+1:$h;
+        $r=($h>11)?"PM":"AM"; $h=($h>12)?$h-12:$h;
+        return $day.'&emsp;'.$h.':'.$m.' '.$r;
+    }
     if($title = $request->input('title')){
         if($title) $request->session()->put('title', $title);
     }else{
-        if($request->session()->has('title')){  
-            $messages = $request->session()->get('messages', [
+        if($request->session()->has('title')){    
+            $times = $request->input('tz');  
+            $msgs = $request->session()->get('msgs', [
                 ['role' => 'system', 'content' => "You are an AI person. OpenAi developers trained you and he solely developed you, so you are Ruxy's chatbot. Answer as concisely as possible."]
             ]);
-            $messages[] = ['role' => 'user', 'content' => $request->input('message')];
+            $messages = $request->session()->get('messages', [
+                ['role' => 'system', 'time' => getTime($times), 'content' => "You are an AI person. OpenAi developers trained you and he solely developed you, so you are Ruxy's chatbot. Answer as concisely as possible."]
+            ]);
+            $msgs[] = ['role' => 'user', 'content' => $request->input('message')];
+            $messages[] = ['role' => 'user', 'time' => getTime($times), 'content' => $request->input('message')];  
             $response = OpenAI::chat()->create([
                 'model' => 'gpt-3.5-turbo',
-                'messages' => $messages
+                'messages' => $msgs
             ]);
-            $messages[] = ['role' => 'assistant', 'content' => $response->choices[0]->message->content];
+            $msgs[] = ['role' => 'assistant', 'content' => $response->choices[0]
+            ->message->content]; 
+            $messages[] = ['role' => 'assistant', 'time' => getTime($times), 'content' => $response->choices[0]
+            ->message->content]; 
+            $request->session()->put('msgs', $msgs);
             $request->session()->put('messages', $messages);
         }
     }
     return redirect('/');
+
+    
 });
 
 Route::get('/reset', function (Request $request){
     $request->session()->forget('messages');
+    $request->session()->forget('msgs');
     return redirect('/');
 });
 
