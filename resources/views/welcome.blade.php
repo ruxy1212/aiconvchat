@@ -7,14 +7,14 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
         <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
-        <link href="{{ asset('rlogo.png') }}" rel="icon" />
+        <link href="{{ asset('images/images/rlogo.png') }}" rel="icon" />
     </head>
     <body class="antialiased min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900">
         <header style="position: sticky; top: 0; z-index: 20;">
             <div class="focal-outline scale-100 p-3 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex sm:justify-betweens" style="">
                 <a href="javascript:void(0);" onclick="freshConv()" class="hbtn">Refresh</a>
                 <div class="flex justify-center">
-                    <img class="h-16 w-auto" src="{{ asset('rlogo.png') }}" alt="Logo" style="visibility: hidden; margin-bottom: -25px" />
+                    <img class="h-16 w-auto" src="{{ asset('images/rlogo.png') }}" alt="Logo" style="visibility: hidden; margin-bottom: -25px" />
                 </div>
                 <a href="javascript:void(0);" onclick="openExt()" class="hbtn">Extras</a>
             </div>
@@ -71,7 +71,7 @@
         <div class="relative selection:bg-red-500 selection:text-white">
             <div class="max-w-7xl mx-auto p-6 lg:p-8" style="padding-bottom: 0">
                 <div class="flex justify-center">
-                    <img class="h-16 w-auto" src="{{ asset('rlogo.png') }}" alt="Logo" />
+                    <img class="h-16 w-auto" src="{{ asset('images/rlogo.png') }}" alt="Logo" />
                 </div>
                 @foreach($messages as $message)
                     <div class="boxc">
@@ -79,9 +79,9 @@
                             <div>
                                 <div class="@if($message['role'] === 'user') relative @endif h-16 w-16 bg-red-50 dark:bg-red-800/20 flex items-center justify-center rounded-full">
                                     @if($message['role'] == 'assistant')
-                                    <img class="h-166 w-auto" src="{{ asset('rlogo.png') }}" alt="Logo" />
+                                    <img class="h-166 w-auto" src="{{ asset('images/rlogo.png') }}" alt="Logo" />
                                     @else 
-                                    <img class="h-166 w-auto" src="{{ asset('clogo.png') }}" alt="Logo" />
+                                    <img class="h-166 w-auto" src="{{ asset('images/clogo.png') }}" alt="Logo" />
                                     <span class="w-166">@if(session()->has('title')) {{ strtoupper(Session::get('title')[0]) }} @else R @endif  </span>
                                     @endif
                                 </div>
