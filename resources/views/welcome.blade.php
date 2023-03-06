@@ -7,7 +7,7 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
         <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
-        <link href="{{ asset('images/images/rlogo.png') }}" rel="icon" />
+        <link href="{{ asset('images/rlogo.png') }}" rel="icon" />
     </head>
     <body class="antialiased min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900">
         <header style="position: sticky; top: 0; z-index: 20;">
