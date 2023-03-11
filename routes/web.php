@@ -34,9 +34,9 @@ Route::post('/', function(Request $request){
                     // Storage::put('audio.wav', $audio);
 
                     file_put_contents('/tmp/audio.wav', $audio);
-                    $dir    = '/';
-                    $files = scandir($dir);
-                    dd($files); exit;
+//                     $dir    = '/';
+//                     $files = scandir($dir);
+//                     dd($files); exit;
                     // file_put_contents('audio.wav', base64_decode($audio));
                     // ;fopen('audio.wav', 'r')
                     // dd('audio.wav');
