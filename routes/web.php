@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use OpenAI\Laravel\Facades\OpenAI;
+use Illuminate\Support\Facades\Storage;
 
 Route::get('/', function () {
    $msgs = collect(session('msgs', []))->reject(fn ($message) => $message['role'] === 'system');
@@ -30,14 +31,16 @@ Route::post('/', function(Request $request){
                     $audi = $audio; 
                     $audio = explode(",",  $audio)[1]; 
                     $audio = base64_decode($audio);
-                    file_put_contents('audio.wav', $audio);
+                    Storage::put('audio.wav', $audio);
+                    // file_put_contents('public/vn/audio.wav', $audio);
                     // file_put_contents('audio.wav', base64_decode($audio));
                     // ;fopen('audio.wav', 'r')
                     // dd('audio.wav');
+                    //;fopen('public/vn/audio.wav', 'r')
                     //echo 'yes'; return redirect('/'); exit;
                     $response = OpenAI::audio()->transcribe([
                         'model' => 'whisper-1',
-                        'file' => fopen('audio.wav', 'r'),
+                        'file' => fopen(Storage::path('audio.wav'), 'r'),
                         'response_format' => 'verbose_json',
                     ]); //dd($response); exit;
                     $nmsg = $response->segments[0]->text;
