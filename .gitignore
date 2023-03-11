@@ -17,5 +17,6 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-
+/resources/views/code.php
+/resources/views/old-welc.blade.php
 .vercel
