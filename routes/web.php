@@ -33,7 +33,7 @@ Route::post('/', function(Request $request){
                     $audio = base64_decode($audio);
                     // Storage::put('audio.wav', $audio);
 
-                    file_put_contents('vn/audio.wav', $audio);
+                    file_put_contents('./vn/audio.wav', $audio);
                     // file_put_contents('audio.wav', base64_decode($audio));
                     // ;fopen('audio.wav', 'r')
                     // dd('audio.wav');
