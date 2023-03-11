@@ -36,12 +36,13 @@ Route::post('/', function(Request $request){
                     // file_put_contents('audio.wav', base64_decode($audio));
                     // ;fopen('audio.wav', 'r')
                     // dd('audio.wav');
-                    // fopen('public/vn/audio.wav', 'r')
-                    // dd(fopen('../storage/app/audio.wav', 'r')); exit;
+                    //;fopen('public/vn/audio.wav', 'r')
+                    // dd(../('audio.wav')); exit;
+                    // Storage::path('audio.wav')
                     //echo 'yes'; return redirect('/'); exit;
                     $response = OpenAI::audio()->transcribe([
                         'model' => 'whisper-1',
-                        'file' => fopen('../storage/app/audio.wav', 'r'),
+                        'file' => fopen(base_path().'/storage/app/audio.wav', 'r'),
                         'response_format' => 'verbose_json',
                     ]); //dd($response); exit;
                     $nmsg = $response->segments[0]->text;
