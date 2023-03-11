@@ -1,5 +1,8 @@
+    var fbtn = document.querySelector('.fbtn');
+
     function scrollToBottom() {
         window.scrollTo(0, document.body.scrollHeight);
+        initRecorder();
     }
     history.scrollRestoration = "manual";
     window.onload = scrollToBottom; 
@@ -7,11 +10,15 @@
     function txAdjust(el){
         el.style.height="1px";
         el.style.height=(el.scrollHeight<200)?(el.scrollHeight)+"px":(200)+"px";
+        (el.value == "") ? fbtn.setAttribute('data', "play") : fbtn.setAttribute('data', "text");
     }
 
     function freshConv(){
         var res = confirm("Are you sure you want to restart? All conversations will be erased.")
-        if(res == true){           
+        if(res == true){    
+            recorder.stop();
+            initRecorder(); 
+            //throw Blob away if it is an audio      
             window.location = "reset/";            
         } else return;
     }
@@ -45,14 +52,17 @@
     const form = document.querySelectorAll('form')[1];
     form.addEventListener('submit', function(e){
         e.preventDefault();
-        if(!document.querySelector('.bdls-input').checkValidity()){
-            // console.log('empty');
-            document.querySelector('.bdls-input').reportValidity();
-        }else {
-            document.querySelector('.fbtn > div').classList.add('dark:bg-red-800/20');
-            document.querySelector('.fbtn > div > svg').style.stroke = "#916060";
-            form.submit();
-        }
+        if(fbtn.getAttribute("data") == "text" && document.querySelector('.bdls-input').value != ""){
+            if(!document.querySelector('.bdls-input').checkValidity()){
+                document.querySelector('.bdls-input').reportValidity();
+            }else {
+                document.querySelector('.fbtn > div').classList.add('dark:bg-red-800/20');
+                document.querySelector('.fbtn > div > svg').style.stroke = "#916060";
+                form.submit();
+            }
+        }else{
+            gotoRecord();
+        }        
     });
 
     var config = document.getElementById('config');

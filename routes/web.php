@@ -24,22 +24,46 @@ Route::post('/', function(Request $request){
     }else{
         if($request->session()->has('title')){    
             $times = $request->input('tz');  
+            if($audio = $request->input('audio')){
+                if($audio){ //$audio fopen('../public/record.wav', 'r') file=$request->file('name') get_file_content(file)...storage::put(') 
+                    //file_put_contents('audio.wav',
+                    $audi = $audio; 
+                    $audio = explode(",",  $audio)[1]; 
+                    $audio = base64_decode($audio);
+                    file_put_contents('audio.wav', $audio);
+                    // file_put_contents('audio.wav', base64_decode($audio));
+                    // ;fopen('audio.wav', 'r')
+                    // dd('audio.wav');
+                    //echo 'yes'; return redirect('/'); exit;
+                    $response = OpenAI::audio()->transcribe([
+                        'model' => 'whisper-1',
+                        'file' => fopen('audio.wav', 'r'),
+                        'response_format' => 'verbose_json',
+                    ]); //dd($response); exit;
+                    $nmsg = $response->segments[0]->text;
+                    $type = 'audio';
+                    $ext = $audi;
+                } 
+            }else {
+                $nmsg = $request->input('message');
+                $type = 'text';
+                $ext = '';
+            }
+
             $msgs = $request->session()->get('msgs', [
                 ['role' => 'system', 'content' => "You are an AI person. OpenAi developers trained you and he solely developed you, so you are Ruxy's chatbot. Answer as concisely as possible."]
             ]);
             $messages = $request->session()->get('messages', [
-                ['role' => 'system', 'time' => getTime($times), 'content' => "You are an AI person. OpenAi developers trained you and he solely developed you, so you are Ruxy's chatbot. Answer as concisely as possible."]
+                ['ext' => '', 'type' => $type, 'role' => 'system', 'time' => getTime($times), 'content' => "You are an AI person. OpenAi developers trained you and he solely developed you, so you are Ruxy's chatbot. Answer as concisely as possible."]
             ]);
-            $msgs[] = ['role' => 'user', 'content' => $request->input('message')];
-            $messages[] = ['role' => 'user', 'time' => getTime($times), 'content' => $request->input('message')];  
+            $msgs[] = ['role' => 'user', 'content' => $nmsg];
+            $messages[] = ['ext' => $ext, 'type' => $type, 'role' => 'user', 'time' => getTime($times), 'content' => $nmsg];  
             $response = OpenAI::chat()->create([
                 'model' => 'gpt-3.5-turbo',
                 'messages' => $msgs
             ]);
-            $msgs[] = ['role' => 'assistant', 'content' => $response->choices[0]
-            ->message->content]; 
-            $messages[] = ['role' => 'assistant', 'time' => getTime($times), 'content' => $response->choices[0]
-            ->message->content]; 
+            $msgs[] = ['role' => 'assistant', 'content' => $response->choices[0]->message->content]; 
+            $messages[] = ['ext' => '', 'type' => $type, 'role' => 'assistant', 'time' => getTime($times), 'content' => $response->choices[0]->message->content]; 
             $request->session()->put('msgs', $msgs);
             $request->session()->put('messages', $messages);
         }

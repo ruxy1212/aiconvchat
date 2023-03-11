@@ -8,10 +8,11 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
         <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
         <link href="{{ asset('images/rlogo.png') }}" rel="icon" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
-    <body class="antialiased min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900">
+    <body class="antialiased min-h-screen bg-dots-darker bg-center bg-gray-200 dark:bg-dots-lighter dark:bg-gray-900">
         <header style="position: sticky; top: 0; z-index: 20;">
-            <div class="focal-outline scale-100 p-3 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex sm:justify-betweens" style="">
+            <div class="focal-outline scale-100 p-3 bg-gray-100 dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex sm:justify-betweens" style="">
                 <a href="javascript:void(0);" onclick="freshConv()" class="hbtn">Refresh</a>
                 <div class="flex justify-center">
                     <img class="h-16 w-auto" src="{{ asset('images/rlogo.png') }}" alt="Logo" style="visibility: hidden; margin-bottom: -25px" />
@@ -52,14 +53,14 @@
             </div>         
         </div>
 
-        <div class="@if(session()->has('title')) unsee @else see @endif bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent" style="height: 100%; width: 100%; position: fixed; z-index: 9;">
+        <div class=" @if(session()->has('title')) unsee @else see @endif bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent" style="height: 100%; width: 100%; position: fixed; z-index: 9;">
             <div class="relative" style="height: 100%; width: 100%; width: 500px; max-width: 80%; display: block; margin: 0 auto;">
                 <div class="focal-outline scale-100 p-3 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex focusw:outline focusw:outline-2 focusw:outline-red-500" style="position: absolute; bottom: 200px; width: 100%;">
                     <form class="wwide" action="" method="post" style="padding: 10px;">
                         @csrf
                         <label class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed" style="display: block; text-align: center; padding: 10px;" for="title"><strong>Your Name</strong></label>
                             <div class="input-group">
-                                <input type="text" style="width: 100%; outline: none; padding: 10px;" required name="title" placeholder="Enter your name"/>
+                                <input class="bg-gray-100 dark:bg-gray-900 text-gray-500 dark:text-gray-400 text-sm" type="text" style="width: 100%; outline: none; padding: 10px;" required name="title" placeholder="Enter your name"/>
                             </div>
                             <br>
                         <input type="submit" class="focal-outline font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500" style="cursor: pointer; display: block; margin: 0 auto; padding: 10px;" value="Proceed" name="tsubmit" />
@@ -90,9 +91,13 @@
                                 <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
                                     {!! $message['content'] !!}
                                 </p>
+                                @if($message['role'] === 'user')
+                                    @if($message['type'] == 'audio')
+                                      <audio controls controlsList="nodownload"><source src="{!! $message['ext'] !!}" type="audio/ogg"></audio>
+                                    @endif
+                                @endif
                                 <small style="position: absolute; bottom: -18px; @if($message['role'] === 'user') right @else left @endif : 0; white-space: nowrap;font-size: x-small;" class="text-gray-900 dark:text-bisque">{!! $message['time'] !!}</small>
-                            </a>
-                            
+                            </a>                           
                         </div>
                     </div>
                 @endforeach
@@ -102,21 +107,42 @@
         <div class="boxr">
             <div class="p-6">
                 <div class="scale-100 p-3 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex focusw:outline focusw:outline-2 focusw:outline-red-500 inpxb">
-                    <form class="relative sm:flex sm:justify-center sm:items-center wwide" action="" method="post">
+                    <form class="relative sm:flex sm:justify-center sm:items-center wwide formmaintain" action="" method="post">
                         @csrf
-                        <textarea type="text" rows="1" onkeyup="txAdjust(this)" class="bdls-input wwide text-gray-500 dark:text-gray-400 text-sm" required name="message" autofocus autocomplete="off" placeholder="Write..."></textarea>
+                        <textarea type="text" rows="1" onkeyup="txAdjust(this)" class="bdls-input wwide text-gray-500 dark:text-gray-400 text-sm hlong" name="message" autofocus autocomplete="off" placeholder="Write..." ></textarea>
                         <input type="hidden" name="tz" id="tzo"/>
-                        <button class="fbtn">
+                        <button class="fbtn" data="play">
                             <div class="h-8 w-8 bg-red-50 flex items-center justify-center rounded-full">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 h-6 mx-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="self-center shrink-0 stroke-red-500 w-6 mx-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1000 1000" class="self-center shrink-0 stroke-red-500">
+                                    <path d="M395,325c0-57.8,47.3-105,105-105s105,47.2,105,105v175c0,57.8-47.3,105-105,105s-105-47.3-105-105V325z M675,500c0,90.3-69.4,165.3-157.5,174.1V745H605v35h-87.5h-35H395v-35h87.5v-70.9C394.4,665.3,325,590.3,325,500v-87.5h35v86.6c0,77,63,140,140,140c77,0,140-63,140-140v-86.6h35L675,500L675,500z"/>
                                 </svg>
                             </div>
                         </button>
+                        <span class="fbtnt rcd-cancel" style="visibility: hidden;" onclick="rcdCancel()">
+                            <div class="h-8 w-8 bg-red-50 flex items-center justify-center rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1000 1000"  class="self-center shrink-0 stroke-red-500">
+                                    <path d="M738.2,718.6l-19.6,19.6c-6.2,6.2-16.2,6.2-22.4,0L500,542L303.8,738.2c-6.2,6.2-16.2,6.2-22.4,0l-19.6-19.6c-6.2-6.2-6.2-16.2,0-22.4L458,500L261.8,303.8c-6.2-6.2-6.2-16.2,0-22.4l19.6-19.6c6.2-6.2,16.2-6.2,22.4,0L500,458l196.2-196.2c6.2-6.2,16.2-6.2,22.4,0l19.6,19.6c6.2,6.2,6.2,16.2,0,22.4L542,500l196.2,196.2C744.4,702.4,744.4,712.4,738.2,718.6z"/>
+                                </svg>
+                            </div>
+                        </span>
+                        <span class="fbtnt rcd-timer" style="visibility: hidden; left: 20px; right: unset;">
+                            <div class="h-8 w-8 flex items-center justify-center rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 1000 1000" class="rd-rcdng-dt self-center shrink-0 stroke-red-500">
+                                    <path d="M395,325c0-57.8,47.3-105,105-105s105,47.2,105,105v175c0,57.8-47.3,105-105,105s-105-47.3-105-105V325z M675,500c0,90.3-69.4,165.3-157.5,174.1V745H605v35h-87.5h-35H395v-35h87.5v-70.9C394.4,665.3,325,590.3,325,500v-87.5h35v86.6c0,77,63,140,140,140c77,0,140-63,140-140v-86.6h35L675,500L675,500z"/>
+                                </svg>
+                                <label class="text-gray-500 dark:text-gray-400">0:00</label>
+                            </div>
+                        </span>
                     </form>
                 </div>
             </div>
         </div>
+        <script type="text/javascript" src="{{ asset('src/AudioRecord.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('src/AudioRecorder.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/record.js') }}"></script>
         <script src="{{ asset('js/script.js') }}"></script>
     </body>
 </html>
