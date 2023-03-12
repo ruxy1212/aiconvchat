@@ -32,11 +32,11 @@ Route::post('/', function(Request $request){
                     $audio = explode(",",  $audio)[1]; 
                     $audio = base64_decode($audio);
                     // Storage::put('audio.wav', $audio);
-
-//                     file_put_contents('/tmp/audio.wav', $audio);
-//                     $dir    = '/';
-//                     $files = scandir($dir);
-//                     dd($files); exit;
+// $var = fopen($filename, "w+"), then call fwrite($var, $file), and then close with fclose($var).
+                    file_put_contents('/tmp/audio.wav', $audio, FILE_APPEND | LOCK_EX );
+                    $dir    = '/';
+                    $files = scandir($dir);
+                    dd($files); exit;
                     // file_put_contents('audio.wav', base64_decode($audio));
                     // ;fopen('audio.wav', 'r')
                     // dd('audio.wav');
