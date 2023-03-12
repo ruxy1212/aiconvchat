@@ -42,7 +42,7 @@ Route::post('/', function(Request $request){
                     // dd(../('audio.wav')); exit;
                     // Storage::path('audio.wav')
                     //echo 'yes'; return redirect('/'); exit;
-                   $chot = fopen('/tmp/audio.wav', 'r')
+                   $chot = fopen('/tmp/audio.wav', 'r');
                     $response = OpenAI::audio()->transcribe([
                         'model' => 'whisper-1',
                         'file' => $chot,
