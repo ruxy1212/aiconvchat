@@ -48,10 +48,10 @@ Route::post('/', function(Request $request){
                         'file' => $chot,
                         'response_format' => 'verbose_json',
                     ]); //dd($response); exit;
-                    dd($response);  exit;
-                    $dir    = '/';
-                    $files = scandir($dir);
-                    dd($files); exit;
+//                     dd($response);  exit;
+//                     $dir    = '/';
+//                     $files = scandir($dir);
+//                     dd($files); exit;
                     
                     $nmsg = $response->segments[0]->text;
                     $type = 'audio';
