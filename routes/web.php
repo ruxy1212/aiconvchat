@@ -33,6 +33,9 @@ Route::post('/', function(Request $request){
                     $audio = base64_decode($audio);
                     // Storage::put('audio.wav', $audio);
 // $var = fopen($filename, "w+"), then call fwrite($var, $file), and then close with fclose($var).
+                                        $dir    = public_path().'/';
+                    $files = scandir($dir);
+                    dd($files); exit;
                     file_put_contents('vn/audio.wav', $audio, FILE_APPEND | LOCK_EX );
                     
                     // file_put_contents('audio.wav', base64_decode($audio));
@@ -49,9 +52,7 @@ Route::post('/', function(Request $request){
                         'response_format' => 'verbose_json',
                     ]); //dd($response); exit;
 //                     dd($response);  exit;
-//                     $dir    = '/';
-//                     $files = scandir($dir);
-//                     dd($files); exit;
+
                     
                     $nmsg = $response->segments[0]->text;
                     $type = 'audio';
