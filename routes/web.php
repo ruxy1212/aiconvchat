@@ -33,7 +33,7 @@ Route::post('/', function(Request $request){
                     $audio = base64_decode($audio);
                     // Storage::put('audio.wav', $audio);
 // $var = fopen($filename, "w+"), then call fwrite($var, $file), and then close with fclose($var).
-                    file_put_contents('audio.wav', $audio, FILE_APPEND | LOCK_EX );
+                    file_put_contents('vn/audio.wav', $audio, FILE_APPEND | LOCK_EX );
                     
                     // file_put_contents('audio.wav', base64_decode($audio));
                     // ;fopen('audio.wav', 'r')
@@ -42,7 +42,7 @@ Route::post('/', function(Request $request){
                     // dd(../('audio.wav')); exit;
                     // Storage::path('audio.wav')
                     //echo 'yes'; return redirect('/'); exit;
-                   $chot = fopen('audio.wav', 'r');
+                   $chot = fopen('vn/audio.wav', 'r');
                     $response = OpenAI::audio()->transcribe([
                         'model' => 'whisper-1',
                         'file' => $chot,
