@@ -33,10 +33,10 @@ Route::post('/', function(Request $request){
                     $audio = base64_decode($audio);
                     // Storage::put('audio.wav', $audio);
 
-                    file_put_contents('/tmp/audio.wav', $audio);
-                    $dir    = '/';
-                    $files = scandir($dir);
-                    dd($files); exit;
+//                     file_put_contents('/tmp/audio.wav', $audio);
+//                     $dir    = '/';
+//                     $files = scandir($dir);
+//                     dd($files); exit;
                     // file_put_contents('audio.wav', base64_decode($audio));
                     // ;fopen('audio.wav', 'r')
                     // dd('audio.wav');
@@ -44,9 +44,10 @@ Route::post('/', function(Request $request){
                     // dd(../('audio.wav')); exit;
                     // Storage::path('audio.wav')
                     //echo 'yes'; return redirect('/'); exit;
+                    //fopen('/tmp/audio.wav', 'r')
                     $response = OpenAI::audio()->transcribe([
                         'model' => 'whisper-1',
-                        'file' => fopen('/tmp/audio.wav', 'r'),
+                        'file' => $audio,
                         'response_format' => 'verbose_json',
                     ]); //dd($response); exit;
                     $nmsg = $response->segments[0]->text;
