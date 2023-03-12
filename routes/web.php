@@ -31,12 +31,12 @@ Route::post('/', function(Request $request){
                     $audi = $audio; 
                     $audio = explode(",",  $audio)[1]; 
                     $audio = base64_decode($audio);
-                    // Storage::put('audio.wav', $audio);
+                    Storage::put('audio.wav', $audio);
 // $var = fopen($filename, "w+"), then call fwrite($var, $file), and then close with fclose($var).
-                                        $dir    = public_path().'/';
+                                        $dir   = public_path().'/../';
                     $files = scandir($dir);
                     dd($files); exit;
-                    file_put_contents('vn/audio.wav', $audio, FILE_APPEND | LOCK_EX );
+//                     file_put_contents('vn/audio.wav', $audio, FILE_APPEND | LOCK_EX );
                     
                     // file_put_contents('audio.wav', base64_decode($audio));
                     // ;fopen('audio.wav', 'r')
