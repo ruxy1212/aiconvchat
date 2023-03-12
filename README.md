@@ -3,7 +3,7 @@
 
 ## About
 
-This App, RAI Chat is a conversational AI chatbot application using the latest GPT3.5 Turbo AI Model made available by OpenAI on March 1st, 2023. Enjoy, but sha don't expend all my tokens. 1 token is equivalent to 0.75 words!
+This App, RAI Chat is a conversational AI chatbot application using the latest GPT3.5 Turbo and Whisper AI Models made available by OpenAI on March 1st, 2023. Whisper AI translate the voice recording, while GPT Turbo creates the conversational chat. Enjoy, but sha don't expend all my tokens. 1 token is equivalent to 0.75 words! Also, the recording time limit per voice note is 15seconds.
 
 <i>This application is being developed and maintained on this [Github repo](https://github.com/ruxy1212/aiconvchat). Kindly give me a star on [GitHub](https://github.com/ruxy1212) or [Buy me a coke](https://www.buymeacoffee.com/ruxy1212).</i>
 

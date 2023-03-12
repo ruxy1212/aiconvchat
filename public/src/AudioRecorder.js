@@ -40,7 +40,7 @@ var LinguaRecorder = function( config ) {
 	this.autoStart = config.autoStart === true;
 	this.autoStop = config.autoStop === true;
 	this.bufferSize = config.bufferSize || 4096;
-	this.timeLimit = config.timeLimit || 30;
+	this.timeLimit = config.timeLimit || 15;
 	this.cancelOnSaturate = config.onSaturate === 'cancel';
 	this.discardOnSaturate = config.onSaturate === 'discard';
 	this.saturationThreshold = config.saturationThreshold || 0.99;
