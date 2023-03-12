@@ -48,7 +48,7 @@ Route::post('/', function(Request $request){
                         'file' => $chot,
                         'response_format' => 'verbose_json',
                     ]); //dd($response); exit;
-                    fclose($chot);
+                    dd($response);  exit;
                     $dir    = '/';
                     $files = scandir($dir);
                     dd($files); exit;
