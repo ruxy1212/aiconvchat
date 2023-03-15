@@ -140,9 +140,6 @@
                 </div>
             </div>
         </div>
-        <audio controls="" download="nodownload" style="display: none;" id="theaudioelement" src="">
-              <source src="" type="audio/mpeg">
-        </audio>
         <script type="text/javascript" src="{{ asset('src/AudioRecord.js') }}"></script>
         <script type="text/javascript" src="{{ asset('src/AudioRecorder.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/record.js') }}"></script>
