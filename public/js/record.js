@@ -67,7 +67,7 @@ function rcdCancel(){
 
 document.addEventListener('play', function(e){  
     var players = document.getElementsByTagName('audio');  
-    for(var i = 0; i < audios.length; i++){  
+    for(var i = 0; i < players.length; i++){  
         if(players[i] != e.target && !players[i].paused && players[i].currentTime > 0 && !players[i].ended){  
             players[i].pause();  
         }  

@@ -12,7 +12,7 @@
     </head>
     <body class="antialiased min-h-screen bg-dots-darker bg-center bg-gray-200 dark:bg-dots-lighter dark:bg-gray-900">
         <header style="position: sticky; top: 0; z-index: 20;">
-            <div class="focal-outline scale-100 p-3 bg-gray-100 dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex sm:justify-betweens" style="">
+            <div class="focal-outliner scale-100 p-3 bg-gray-100 dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex sm:justify-betweens" style="">
                 <a href="javascript:void(0);" onclick="freshConv()" class="hbtn">Refresh</a>
                 <div class="flex justify-center">
                     <img class="h-16 w-auto" src="{{ asset('images/rlogo.png') }}" alt="Logo" style="visibility: hidden; margin-bottom: -25px" />
@@ -21,12 +21,12 @@
             </div>
         </header>
         
-        <div class="unsee bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent" style="height: 100%; width: 100%; position: fixed; z-index: 9;">
-            <div class="relative" style="height: 100%; width: 100%; width: 500px; max-width: 80%; display: block; margin: 0 auto;">
+        <div class="unsee bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent bimodal">
+            <div class="relative">
                 <div class="flex justify-center items-center" style="height: 100%;">
                     <div class="focal-outline scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none focusw:outline focusw:outline-2 focusw:outline-red-500" style="width: 100%;">
                         <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Config</h2>
-                        <div class="flex gap-4 mt-4">
+                        <div class="flex gap-4 mt-4 sm:justify-betweens">
                             <div  style="flex-direction: column; display: flex; max-width: 75%;">
                                 <label class="text-gray-900 dark:text-bisque text-sm leading-relaxed" style="padding: 0 10px;" for="title"><strong>Enter key to Send</strong></label>
                                 <small class="text-gray-500 dark:text-gray-400" style="padding: 0 10px; line-height: 1;">Enter will send your message (Shift+Enter to return to a new line)</small>
@@ -40,7 +40,7 @@
                         </div>
                         <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">About</h2>
                         <p class="mt-4 text-gray-900 dark:text-bisque text-sm leading-relaxed">
-                            This App, RAI Chat is a conversational AI chatbot application using the latest GPT3.5 Turbo AI Model made available by OpenAI on March 1st, 2023. Enjoy, but sha don't expend all my tokens. 1 token is equivalent to 0.75 words!
+                            This App, RAI Chat is a conversational AI chatbot application using the latest GPT3.5 Turbo and Whisper AI Models made available by OpenAI on March 1st, 2023. Whisper AI translates the voice recording, while GPT Turbo creates the conversational chat. Enjoy, but sha don't expend all my tokens. 1 token is equivalent to 0.75 words! Also, the voice note recording time limit is 15seconds.
                         </p>
                         <i><p class="text-gray-900 dark:text-bisque text-sm leading-relaxed">This application is being developed and maintained on this <a style="text-decoration: underline;" href="https://github.com/ruxy1212/aiconvchat" target="_blank">Github repo</a>. Kindly give me a star on <a style="text-decoration: underline;" href="https://github.com/ruxy1212" target="_blank">Github</a> or <a href="https://www.buymeacoffee.com/ruxy1212" target="_blank">Buy me a coke</a>.</p></i>
                         <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Credits</h2>
@@ -140,6 +140,9 @@
                 </div>
             </div>
         </div>
+        <audio controls="" download="nodownload" style="display: none;" id="theaudioelement" src="">
+              <source src="" type="audio/mpeg">
+        </audio>
         <script type="text/javascript" src="{{ asset('src/AudioRecord.js') }}"></script>
         <script type="text/javascript" src="{{ asset('src/AudioRecorder.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/record.js') }}"></script>
