@@ -69,7 +69,7 @@
             </div>    
         </div>
 
-        <div class="relative selection:bg-red-500 selection:text-white">
+        <div class="relative selection:bg-red-500 selection:text-white bdrop">
             <div class="max-w-7xl mx-auto p-6 lg:p-8" style="padding-bottom: 0">
                 <div class="flex justify-center">
                     <img class="h-16 w-auto" src="{{ asset('images/rlogo.png') }}" alt="Logo" />

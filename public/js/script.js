@@ -3,6 +3,7 @@
     function scrollToBottom() {
         window.scrollTo(0, document.body.scrollHeight);
         initRecorder();
+        document.querySelector('.bdls-input').setAttribute('autofocus','');
     }
     history.scrollRestoration = "manual";
     window.onload = scrollToBottom; 
@@ -16,7 +17,6 @@
     function freshConv(){
         var res = confirm("Are you sure you want to restart? All conversations will be erased.")
         if(res == true){    
-            recorder.stop();
             initRecorder(); 
             //throw Blob away if it is an audio      
             window.location = "reset/";            
@@ -24,13 +24,18 @@
     }
 
     function openExt(){
+        document.querySelector('.bdrop').classList.toggle('bdrop-real');
+        document.querySelector('.boxr').classList.toggle('boxr-real'); 
         document.querySelectorAll('body > div')[0].classList.toggle('unsee');
     }
 
     document.addEventListener('mouseup', function (e) { 
         var con = document.querySelectorAll('body > div')[0], extcon = con.querySelector('div > div > div > div');
         var extbtn = document.querySelectorAll('header a')[1];
-        if(!extcon.contains(e.target) && !extbtn.contains(e.target)) con.classList.add('unsee');
+        if(!extcon.contains(e.target) && !extbtn.contains(e.target)) {
+            con.classList.add('unsee');
+            document.querySelector('.boxr').classList.remove('boxr-real'); 
+        }
     });
 
     document.addEventListener('scroll', function(){ 
@@ -58,6 +63,7 @@
             }else {
                 document.querySelector('.fbtn > div').classList.add('dark:bg-red-800/20');
                 document.querySelector('.fbtn > div > svg').style.stroke = "#916060";
+                document.querySelector('.fbtn').disabled = "true";
                 form.submit();
             }
         }else{
