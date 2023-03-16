@@ -64,6 +64,7 @@
                 document.querySelector('.fbtn > div').classList.add('dark:bg-red-800/20');
                 document.querySelector('.fbtn > div > svg').style.stroke = "#916060";
                 document.querySelector('.fbtn').disabled = "true";
+                document.querySelector('.bdls-input').disabled = "true";
                 form.submit();
             }
         }else{

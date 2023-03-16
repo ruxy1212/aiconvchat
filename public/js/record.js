@@ -16,6 +16,8 @@ function initRecorder() {
         document.querySelector('.fbtn > div > svg').style.stroke = "#916060";
         document.querySelector('.rcd-cancel').style.visibility = "hidden";
         document.querySelector('.rcd-timer').style.visibility = "hidden";
+        document.querySelector('.fbtn').disabled = "true";
+        document.querySelector('.bdls-input').disabled = "true";
         addSound( audioRecord );
     }).on( 'canceled', function() {
         document.querySelector('.rcd-cancel').style.visibility = "hidden";

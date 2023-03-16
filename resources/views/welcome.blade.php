@@ -8,6 +8,7 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
         <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
         <link href="{{ asset('images/rlogo.png') }}" rel="icon" />
+        <link href="{{ asset('css/highlight.css') }}"rel="stylesheet" />
         <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
     <body class="antialiased min-h-screen bg-dots-darker bg-center bg-gray-200 dark:bg-dots-lighter dark:bg-gray-900">
@@ -88,9 +89,7 @@
                                 </div>
                             </div>
                             <a href="javascript:void(0);" class="scale-100 p-3 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500" style="flex-direction: column; margin-bottom: 10px;">
-                                <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                                    {!! $message['content'] !!}
-                                </p>
+                                <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed c-content">{!! $message['content'] !!}</p>
                                 @if($message['role'] === 'user')
                                     @if($message['type'] == 'audio')
                                       <audio controls controlsList="nodownload"><source src="{!! $message['ext'] !!}" type="audio/ogg"></audio>
@@ -140,6 +139,9 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript" src="{{ asset('js/segment.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/highlight.js') }}"></script>
+        <script>hljs.highlightAll();</script>
         <script type="text/javascript" src="{{ asset('src/AudioRecord.js') }}"></script>
         <script type="text/javascript" src="{{ asset('src/AudioRecorder.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/record.js') }}"></script>
