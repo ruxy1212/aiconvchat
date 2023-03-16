@@ -17,7 +17,7 @@ Route::post('/', function(Request $request){
         $tzo = explode(',', $times);
         $day=Date('d/m/y'); $m=Date('i'); $h=Date('H'); $h=($tzo[0]=='+')?$h+$tzo[1]:$h-$tzo[1]; $h=($h<0)?24-$h:$h; $h=($h>23)?$h-24:$h; 
         $m=($tzo[0]=='+')?$m+$tzo[2]:$m-$tzo[2]; $m=($m<0)?60-$m:$m; $m=($m>60)?$m-60:$m; $h=($m<0)?$h-1:$h; $h=($m>60)?$h+1:$h;
-        $r=($h>11)?"PM":"AM"; $h=($h>12)?$h-12:$h;
+        $r=($h>11)?"PM":"AM"; $h=($h>12)?$h-12:$h; $m=($m<10)?'0'.$m:$m;
         return $day.'&emsp;'.$h.':'.$m.' '.$r;
     }
     if($title = $request->input('title')){
