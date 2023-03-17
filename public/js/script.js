@@ -104,6 +104,9 @@
     }
 
     document.querySelector('.bdls-input').addEventListener('keydown', enterSubmit);
+    document.querySelector('.bdls-input').addEventListener('input', function() {
+        
+    });
 
     function getTZ() {
         function z(n){return (n<10? '0' : '') + n}
