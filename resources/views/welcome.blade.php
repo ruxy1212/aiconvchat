@@ -55,8 +55,8 @@
         </div>
 
         <div class=" @if(session()->has('title')) unsee @else see @endif bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent" style="height: 100%; width: 100%; position: fixed; z-index: 9;">
-            <div class="relative" style="height: 100%; width: 100%; width: 500px; max-width: 80%; display: block; margin: 0 auto;">
-                <div class="focal-outline scale-100 p-3 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex focusw:outline focusw:outline-2 focusw:outline-red-500" style="position: absolute; bottom: 200px; width: 100%;">
+            <div class="relative" style="height: 100%; width: 100%; width: 500px; max-width: 80%; display: flex; align-items: center; margin: 0 auto;">
+                <div class="focal-outline scale-100 p-3 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex focusw:outline focusw:outline-2 focusw:outline-red-500" style="width: 100%;">
                     <form class="wwide" action="" method="post" style="padding: 10px;">
                         @csrf
                         <label class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed" style="display: block; text-align: center; padding: 10px;" for="title"><strong>Your Name</strong></label>
