@@ -71,7 +71,7 @@
         </div>
 
         <div class="relative selection:bg-red-500 selection:text-white bdrop">
-            <div class="max-w-7xl mx-auto p-6 lg:p-8" style="padding-bottom: 0">
+            <div class="max-w-7xl mx-auto p-6 lg:p-8 box-c-p" style="padding-bottom: 0">
                 <div class="flex justify-center">
                     <img class="h-16 w-auto" src="{{ asset('images/rlogo.png') }}" alt="Logo" />
                 </div>
@@ -146,5 +146,12 @@
         <script type="text/javascript" src="{{ asset('src/AudioRecorder.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/record.js') }}"></script>
         <script src="{{ asset('js/script.js') }}"></script>
+        <script>
+            var user = @if(session()->has('title')) "{{ strtoupper(Session::get('title')[0]) }}" 
+                        @else "S" 
+                        @endif
+                        ;
+            var src = "{{ asset('images/clogo.png') }}";
+        </script>
     </body>
 </html>

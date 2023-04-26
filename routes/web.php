@@ -17,7 +17,7 @@ Route::post('/', function(Request $request){
         $tzo = explode(',', $times);
         $day=Date('d/m/y'); $m=Date('i'); $h=Date('H'); $h=($tzo[0]=='+')?$h+$tzo[1]:$h-$tzo[1]; $h=($h<0)?24-$h:$h; $h=($h>23)?$h-24:$h; 
         $m=($tzo[0]=='+')?$m+$tzo[2]:$m-$tzo[2]; $m=($m<0)?60-$m:$m; $m=($m>60)?$m-60:$m; $h=($m<0)?$h-1:$h; $h=($m>60)?$h+1:$h;
-        $r=($h>11)?"PM":"AM"; $h=($h>12)?$h-12:$h; $m=($m<10)?'0'.$m:$m;
+        $r=($h>11)?"PM":"AM"; $h=($h>12)?$h-12:$h; $h=($h==0)?12:$h; $m=($m<10)?'0'.$m:$m;
         return $day.'&emsp;'.$h.':'.$m.' '.$r;
     }
     if($title = $request->input('title')){
@@ -26,33 +26,17 @@ Route::post('/', function(Request $request){
         if($request->session()->has('title')){    
             $times = $request->input('tz');  
             if($audio = $request->input('audio')){
-                if($audio){ //$audio fopen('../public/record.wav', 'r') file=$request->file('name') get_file_content(file)...storage::put(') 
-                    //file_put_contents('audio.wav',
+                if($audio){
                     $audi = $audio; 
                     $audio = explode(",",  $audio)[1]; 
                     $audio = base64_decode($audio);
                     Storage::put('audio.wav', $audio);
-// $var = fopen($filename, "w+"), then call fwrite($var, $file), and then close with fclose($var).
-//                                         $dir   = public_path().'/../';
-//                     $files = scandir($dir);
-//                     dd($files); exit;
-//                     file_put_contents('vn/audio.wav', $audio, FILE_APPEND | LOCK_EX );
-                    
-                    // file_put_contents('audio.wav', base64_decode($audio));
-                    // ;fopen('audio.wav', 'r')
-                    // dd('audio.wav');
-                    //;fopen('public/vn/audio.wav', 'r')
-                    // dd(../('audio.wav')); exit;
-                    // Storage::path('audio.wav')
-                    //echo 'yes'; return redirect('/'); exit;
-                   $chot = fopen('../storage/app/audio.wav', 'r');
+                    $chot = fopen('../storage/app/audio.wav', 'r');
                     $response = OpenAI::audio()->transcribe([
                         'model' => 'whisper-1',
                         'file' => $chot,
                         'response_format' => 'verbose_json',
-                    ]); //dd($response); exit;
-//                     dd($response);  exit;
-
+                    ]);
                     
                     $nmsg = $response->segments[0]->text;
                     $type = 'audio';
@@ -76,15 +60,22 @@ Route::post('/', function(Request $request){
                 'model' => 'gpt-3.5-turbo',
                 'messages' => $msgs
             ]);
+            // $response = (object) [
+            //     "choices" => [
+            //         (object)[
+            //             "message" => (object)[
+            //                 "content" => "This is the content: {$nmsg}"
+            //             ]
+            //         ]
+            //     ]
+            // ];// dd($response->choices[0]->message);
             $msgs[] = ['role' => 'assistant', 'content' => $response->choices[0]->message->content]; 
             $messages[] = ['ext' => '', 'type' => $type, 'role' => 'assistant', 'time' => getTime($times), 'content' => $response->choices[0]->message->content]; 
             $request->session()->put('msgs', $msgs);
             $request->session()->put('messages', $messages);
         }
     }
-    return redirect('/');
-
-    
+    return redirect('/');    
 });
 
 Route::get('/reset', function (Request $request){

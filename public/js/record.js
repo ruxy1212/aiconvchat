@@ -54,6 +54,7 @@ function addSound( audioRecord ) {
         // // multipart/form-data
         document.body.appendChild(rform);
         rform.submit();
+        showLastMsg('<i>Transcribing...</i>', true, audio64);
     }
 }
 
