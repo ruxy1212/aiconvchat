@@ -152,6 +152,7 @@
         </div>
     </div>`;
         document.querySelector('.box-c-p').innerHTML += new_box_c;
+        document.querySelector('.bdls-input').value = "";
     }
     function padUp(num, len) {
         return num.toString().padStart(len, '0');
