@@ -49,10 +49,10 @@ Route::post('/', function(Request $request){
             }
 
             $msgs = $request->session()->get('msgs', [
-                ['role' => 'system', 'content' => "You are an AI person. OpenAi developers trained you and he solely developed you, so you are Ruxy's chatbot. Answer as concisely as possible."]
+                ['role' => 'system', 'content' => "You are an AI human. OpenAi developers trained you and Ruxy solely developed you, so you are Ruxy's chatbot. Answer as concisely as possible."]
             ]);
             $messages = $request->session()->get('messages', [
-                ['ext' => '', 'type' => $type, 'role' => 'system', 'time' => getTime($times), 'content' => "You are an AI person. OpenAi developers trained you and he solely developed you, so you are Ruxy's chatbot. Answer as concisely as possible."]
+                ['ext' => '', 'type' => $type, 'role' => 'system', 'time' => getTime($times), 'content' => "You are an AI human. OpenAi developers trained you and Ruxy solely developed you, so you are Ruxy's chatbot. Answer as concisely as possible."]
             ]);
             $msgs[] = ['role' => 'user', 'content' => $nmsg];
             $messages[] = ['ext' => $ext, 'type' => $type, 'role' => 'user', 'time' => getTime($times), 'content' => $nmsg];  
