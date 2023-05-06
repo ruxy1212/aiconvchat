@@ -5,6 +5,7 @@
         initRecorder();
         document.querySelector('.bdls-input').setAttribute('autofocus','');
     }
+
     history.scrollRestoration = "manual";
     window.onload = scrollToBottom; 
 
@@ -17,8 +18,7 @@
     function freshConv(){
         var res = confirm("Are you sure you want to restart? All conversations will be erased.")
         if(res == true){    
-            initRecorder(); 
-            //throw Blob away if it is an audio      
+            initRecorder();      
             window.location = "reset/";            
         } else return;
     }
@@ -46,10 +46,6 @@
             document.querySelectorAll('img')[0].style.visibility = "hidden";
             document.querySelectorAll('img')[1].style.visibility = "visible";
         }
-    //     var cbox = document.querySelector('.max-w-7xl').getBoundingClientRect();
-    //     //, rbox = document.querySelector('.boxr').getBoundingClientRect();
-    //     if(cbox.top < -10) document.querySelector('.boxr').style.position = "sticky";
-    //     else document.querySelector('.boxr').style.position = "fixed";
     });
 
     if((document.querySelector('.max-w-7xl').getBoundingClientRect().height+100)>document.body.getBoundingClientRect().height) document.querySelector('.boxr').style.position = "sticky"; 
