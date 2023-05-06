@@ -67,6 +67,7 @@
                 form.submit();
                 showLastMsg(document.querySelector('.bdls-input').value, false, 0);
                 document.querySelector('.bdls-input').disabled = "true";
+                document.querySelector('.bdls-input').value = "";
             }
         }else{
             gotoRecord();

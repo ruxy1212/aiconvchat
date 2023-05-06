@@ -86,5 +86,5 @@ Route::get('/reset', function (Request $request){
 
 
 Route::get('/linkstorage', function () {
-    Artisan::call('storage:link');
+    //Artisan::call('storage:link');
 });
